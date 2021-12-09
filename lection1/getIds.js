@@ -38,10 +38,12 @@ const newReleases = [
   },
 ];
 
-function getIds(arr) {
-  return arr.reduce((acc, el) => {
-    el.rating[0] === 5.0 ? acc.push(el.id) : null;
-    return acc;
+function getIds(arrReleases) {
+  return arrReleases.reduce((arrIds, release) => {
+    if (release.rating[0] === 5.0) {
+      arrIds.push(release.id);
+    }
+    return arrIds;
   }, []);
 }
 

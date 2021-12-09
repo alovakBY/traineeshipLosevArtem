@@ -21,14 +21,14 @@ const videos = [
   },
 ];
 
-function arrToHash(arr) {
-  return arr.reduce((acc, el) => {
-    acc[el.id] = el.title;
-    return acc;
+function arrToObject(arrVideos) {
+  return arrVideos.reduce((object, video) => {
+    object[video.id] = video.title;
+    return object;
   }, {});
 }
 
-console.log(arrToHash(videos));
+console.log(arrToObject(videos));
 
 // Ожидаемый результат...
 //     {

@@ -25,14 +25,14 @@ const boxarts = [
   },
 ];
 
-function getMaxSquare(arr) {
-  const hashMaxSquare = arr.reduce((acc, el) => {
-    if (!acc.width) acc = el;
-    if (acc.width * acc.height < el.width * el.height) acc = el;
-    return acc;
+function getMaxSquare(arrBoxarts) {
+  const objectMaxSquareBox = arrBoxarts.reduce((object, box) => {
+    if (Object.keys(object).length === 0) object = box;
+    if (object.width * object.height < box.width * box.height) object = box;
+    return object;
   }, {});
 
-  return hashMaxSquare.url;
+  return objectMaxSquareBox.url;
 }
 
 console.log(getMaxSquare(boxarts));

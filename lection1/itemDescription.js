@@ -5,14 +5,11 @@
 const arr = [1, "hello", true];
 
 function itemDiscription(arr) {
-  return arr.reduce((acc, el, i) => {
-    acc.push({
-      elementItem: el,
-      elementType: typeof el,
-      elementIndex: i,
-    });
-    return acc;
-  }, []);
+  return arr.map((element, index) => ({
+    elementItem: element,
+    elementType: typeof element,
+    elementIndex: index,
+  }));
 }
 
 console.log(itemDiscription(arr));

@@ -1,24 +1,27 @@
 "use strict";
 
-function returnNumber(arr) {
-  const hash = arr.reduce((acc, el) => {
-    !acc[el] ? (acc[el] = 1) : acc[el]++;
-    return acc;
+function returnNumber(arrNumbers) {
+  // Делаем объект чисел, с количестовм повторений
+  const objectRepeatNumbers = arrNumbers.reduce((object, number) => {
+    !object[number] ? (object[number] = 1) : object[number]++;
+    return object;
   }, {});
-  const newArr = Object.keys(hash).reduce(
-    ([key, value], el) => {
-      if (hash[el] > value) {
-        key = el;
-        value = hash[el];
-      } else if (hash[el] === value) {
-        key = Math.max(+el, key);
-        value = hash[el];
-      }
-      return [+key, value];
+
+  // Находим все числа, которые повторяются максимальное количество раз
+  const arrMaxRepeatNumbers = Object.keys(objectRepeatNumbers).reduce(
+    (acc, el) => {
+      if (
+        objectRepeatNumbers[el] ===
+        Math.max(...Object.values(objectRepeatNumbers))
+      )
+        acc.push(+el);
+      return acc;
     },
-    [0, 0]
+    []
   );
-  return newArr[0];
+
+  // Возвращаем большее число из максимально повторяющихся чисел.
+  return Math.max(...arrMaxRepeatNumbers);
 }
 
-console.log(returnNumber([1, 1, 1, 2, 2, 2, 2, 3, 4]));
+console.log(returnNumber([1, 1, 1, 1, 2, 2, 2, 2, 3, 4]));

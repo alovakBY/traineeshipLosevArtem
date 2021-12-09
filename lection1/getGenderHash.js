@@ -24,26 +24,25 @@ const users = [
   },
 ];
 
-function getGenderHash(arr) {
-  return arr.reduce((acc, el, i) => {
-    if (i === 0) {
-      acc.women = [];
-      acc.men = [];
-    }
-    const hash = {
-      id: el.id,
-      fullName: `${el.first_name} ${el.last_name}`,
-      email: el.email,
-      gender: el.gender,
-      ipAdress: el.ip_address,
-    };
-    if (el.gender === "female") {
-      acc.women.push(hash);
-    } else {
-      acc.men.push(hash);
-    }
-    return acc;
-  }, {});
+function getGenderHash(usersArr) {
+  return usersArr.reduce(
+    (objectGender, user) => {
+      const newUserObject = {
+        id: user.id,
+        fullName: `${user.first_name} ${user.last_name}`,
+        email: user.email,
+        gender: user.gender,
+        ipAdress: user.ip_address,
+      };
+      if (user.gender === "female") {
+        objectGender.women.push(newUserObject);
+      } else {
+        objectGender.men.push(newUserObject);
+      }
+      return objectGender;
+    },
+    { women: [], men: [] }
+  );
 }
 
 console.log(getGenderHash(users));
