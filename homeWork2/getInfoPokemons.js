@@ -7,15 +7,15 @@ async function getInfoPokemons() {
         (pokemon) => pokemon.url
     );
 
-    const arrayPromises = arrayPokemonsUrl.map(async (url) => {
-        const response = await fetch(url);
-        const objectResults = await response.json();
-        return objectResults;
+    const arrayPromises = arrayPokemonsUrl.map((url) => {
+        fetch(url)
+            .then((dataItem) => dataItem.json())
+            .then((data) => console.log(data));
     });
 
-    const arrayOfObjectsPokemons = await Promise.all(arrayPromises);
+    // const pokemonDetailedList = await Promise.all(arrayPromises);
 
-    console.log(arrayOfObjectsPokemons);
+    // console.log(pokemonDetailedList);
 }
 
 getInfoPokemons();
