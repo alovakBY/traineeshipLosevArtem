@@ -4,26 +4,32 @@
 
 const btn3 = document.querySelector(".btn3");
 
-let interval = true;
-let timeoutID;
+function textAtRandomInterval(func) {
+    let intervalSwitch = false;
 
-btn3.addEventListener("click", () => {
-  interval ? setTimeoutOn() : setTimeoutOff();
-  interval = !interval;
-});
+    let id;
 
-function getRandomInt() {
-  return Math.floor(Math.random() * 4) + 1;
+    return function swicthInterval() {
+        intervalSwitch = !intervalSwitch;
+
+        const a = function () {
+            if (!intervalSwitch) {
+                clearTimeout(id);
+                return;
+            }
+            let interval = Math.floor(Math.random() * 4) + 1;
+            id = setTimeout(() => {
+                func(interval);
+                a();
+            }, interval * 1000);
+        };
+
+        a();
+    };
 }
 
-function setTimeoutOn() {
-  const delay = getRandomInt();
-  timeoutID = setTimeout(() => {
-    console.log(`${delay} seconds`);
-    if (!interval) setTimeoutOn();
-  }, delay * 1000);
-}
+btn3.addEventListener("click", textAtRandomInterval(randomSeconds));
 
-function setTimeoutOff() {
-  clearTimeout(timeoutID);
+function randomSeconds(seconds) {
+    console.log(`${seconds} seconds`);
 }

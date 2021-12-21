@@ -3,20 +3,22 @@
 // Задача номер 2
 
 const btn2 = document.querySelector(".btn2");
-let intervalSwitch = true;
-let IntervalID;
 
-btn2.addEventListener("click", () => {
-  intervalSwitch ? youAreWelcomeOn() : youAreWelcomeOff();
-  intervalSwitch = !intervalSwitch;
-});
-
-function youAreWelcomeOn() {
-  IntervalID = setInterval(() => {
-    console.log("You are welcome");
-  }, 3000);
+function textAtInterval(func, interval) {
+    let intervalSwitch = true;
+    let id;
+    return function () {
+        if (!intervalSwitch) {
+            clearInterval(id);
+            intervalSwitch = true;
+            return;
+        }
+        id = setInterval(func, interval);
+        intervalSwitch = false;
+    };
 }
+btn2.addEventListener("click", textAtInterval(youAreWelcome, 3000));
 
-function youAreWelcomeOff() {
-  clearInterval(IntervalID);
+function youAreWelcome() {
+    console.log("You are welcome");
 }
